@@ -1,0 +1,7 @@
+refund_id,order_id,amount,status,refund_date
+REF-201,ORD-8902,1500.0,completed,2026-09-08
+REF-202,ORD-8905,3500.0,completed,2026-09-15
+REF-203,ORD-8906,3200.0,completed,2026-09-18
+REF-204,ORD-8909,4000.0,processing,2026-09-22
+REF-205,ORD-8911,2000.0,completed,2026-09-28
+

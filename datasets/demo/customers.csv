@@ -1,0 +1,12 @@
+customer_id,full_name,region,account_type,is_active
+CUST-001,Aarav Mehta,North,Enterprise,True
+CUST-002,Diya Sharma,West,SMB,True
+CUST-003,Rohan Gupta,South,Enterprise,True
+CUST-004,Ananya Iyer,South,Individual,True
+CUST-005,Vikram Patel,West,SMB,False
+CUST-006,Neha Verma,North,SMB,True
+CUST-007,Kabir Joshi,North,Enterprise,True
+CUST-008,Pooja Nair,South,Individual,True
+CUST-009,Arjun Reddy,South,SMB,True
+CUST-010,Tanvi Kulkarni,West,Individual,False
+

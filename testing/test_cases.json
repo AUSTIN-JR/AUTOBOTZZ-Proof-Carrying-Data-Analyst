@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC-01",
+    "name": "September Net Revenue with Deduplication and Refund Lineage",
+    "question": "What was net revenue in September after refunds?",
+    "operation": "NET_REVENUE",
+    "expected_outcome": "warning",
+    "expected_headline": "₹150,400.50",
+    "expected_verification": "MATCH",
+    "notes": "Quarantines duplicate ORD-8902, filters 2026-09 completed orders, subtracts completed refunds for completed orders"
+  },
+  {
+    "id": "TC-02",
+    "name": "Transaction Log Duplicate Identification",
+    "question": "How many duplicate orders exist in the transactions log?",
+    "operation": "COUNT_DUPLICATES",
+    "expected_outcome": "verified",
+    "expected_headline": "1 duplicate orders",
+    "expected_verification": "MATCH",
+    "notes": "Identifies 1 duplicate order_id (ORD-8902)"
+  },
+  {
+    "id": "TC-03",
+    "name": "Gross Completed Revenue",
+    "question": "What is total completed order revenue?",
+    "operation": "FILTER_SUM",
+    "expected_outcome": "warning",
+    "expected_headline": "₹157,400.50",
+    "expected_verification": "MATCH",
+    "notes": "Deduplicated completed orders gross total"
+  },
+  {
+    "id": "TC-04",
+    "name": "Multi-Currency Refusal Barrier",
+    "question": "Convert all USD and INR revenue into INR.",
+    "operation": "CURRENCY_REFUSAL",
+    "expected_outcome": "refused",
+    "expected_headline": "REFUSAL: Insufficient Evidence for Multi-Currency Conversion",
+    "expected_verification": null,
+    "notes": "Halts execution due to absence of FX spot rate evidence"
+  },
+  {
+    "id": "TC-05",
+    "name": "Out-of-Scope Category Analytics Collision Avoidance",
+    "question": "Which product category generated the highest net revenue?",
+    "operation": "UNSUPPORTED",
+    "expected_outcome": "unsupported",
+    "expected_headline": "UNSUPPORTED ANALYSIS",
+    "expected_verification": null,
+    "notes": "Cleanly rejects query without executing scalar net revenue"
+  }
+]

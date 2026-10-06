@@ -1,0 +1,16 @@
+order_id,customer_id,order_date,total_amount,status,channel
+ORD-8901,CUST-001,2026-09-02,14200.0,completed,Direct
+ORD-8902,CUST-002,2026-09-03,8500.5,completed,Partner
+ORD-8903,CUST-003,2026-09-05,42000.0,completed,Web
+ORD-8903,CUST-003,2026-09-05,42000.0,completed,Web
+ORD-8904,CUST-004,2026-09-08,6100.0,completed,Direct
+ORD-8905,CUST-001,2026-09-10,19500.0,completed,Web
+ORD-8906,CUST-005,2026-09-12,3200.0,refunded,Direct
+ORD-8907,CUST-006,2026-09-14,7800.0,pending,Web
+ORD-8908,CUST-002,2026-09-16,11400.0,completed,Partner
+ORD-8909,CUST-007,2026-09-19,26000.0,completed,Direct
+ORD-8910,CUST-008,2026-09-22,5400.0,completed,Web
+ORD-8911,CUST-003,2026-09-25,15000.0,completed,Partner
+ORD-8912,CUST-009,2026-09-28,9300.0,completed,Web
+ORD-8913,CUST-010,2026-09-30,4800.0,pending,Direct
+

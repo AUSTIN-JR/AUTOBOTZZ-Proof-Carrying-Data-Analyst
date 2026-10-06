@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+.pnp/
+.pnp.js
+
+# Next.js build
+.next/
+frontend/.next/
+out/
+build/
+dist/
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Python virtual environment & cache
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Testing & logs
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backend temp storage & runtime uploads
+backend/temp_storage/
+temp_storage/
+
+# Misc / IDE / OS
+.DS_Store
+Thumbs.db
+*.pem
+.vscode/
+.idea/
+*.swp
+*.swo
