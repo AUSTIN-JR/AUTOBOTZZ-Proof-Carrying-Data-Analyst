@@ -9,7 +9,7 @@
 
 ### Overview
 
-**AUTOBOTZZ** is a proof-carrying data analysis system that inspects tabular operational datasets and attaches executable, independently verifiable evidence to every numerical answer it provides.
+**AUTOBOTZZ** is a proof-carrying data analysis system that inspects tabular operational datasets and attaches executable, independently verifiable evidence to supported numerical analyses.
 
 Traditional AI-assisted data analysts frequently present hallucinated figures, obscure accounting flaws, or make silent assumptions. AUTOBOTZZ replaces unverified numerical claims with a deterministic verification pipeline:
 
@@ -39,6 +39,26 @@ ProofPack™ (Verified Answer / Warning / Refusal / Unsupported)
 ```
 
 **Core Principle:** *Every numerical answer should be reproducible. If required evidence is missing, conflicting, or the question cannot be answered reliably, the system must refuse rather than fabricate an answer.*
+
+---
+
+### ⚡ Evaluation at a Glance
+
+AUTOBOTZZ demonstrates a bounded **proof-carrying data-analysis pipeline** where supported numerical answers are accompanied by rerunnable Python proof code, independently executed and checked against the reported result.
+
+**2-minute judge flow:**
+
+1. **Load Demo Data** → 4 physical datasets.
+2. Ask **"What was net revenue in September after refunds?"**
+   → `₹150,400.50` → proof executed → `MATCH`.
+3. Ask **"How many duplicate orders exist in the transactions log?"**
+   → `1 duplicate order` → `MATCH`.
+4. Ask **"Convert all USD and INR revenue into INR."**
+   → `REFUSED` because reliable FX-rate evidence is unavailable.
+5. Ask **"Which product category generated the highest net revenue?"**
+   → `UNSUPPORTED ANALYSIS` because it is outside the bounded MVP scope.
+
+> **Design principle:** Verifiability > Flexibility. A confident wrong answer is worse than a justified refusal.
 
 ---
 
