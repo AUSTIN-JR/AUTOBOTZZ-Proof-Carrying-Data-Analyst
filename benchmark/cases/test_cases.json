@@ -1,0 +1,782 @@
+[
+  {
+    "id": "TC-A01",
+    "category": "Basic Analytics",
+    "question": "What was the total gross recognized revenue in INR from completed orders in September 2026?",
+    "required_tables": [
+      "orders.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.order_id",
+      "orders.order_date",
+      "orders.order_status",
+      "orders.currency",
+      "orders.total_amount",
+      "payments.payment_status"
+    ],
+    "expected_answer": 5078951.91,
+    "calculation_method": "Sum orders.total_amount where currency == 'INR', order_date is September 2026, status in (confirmed, shipped, delivered), and payment is completed.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-A02",
+    "category": "Basic Analytics",
+    "question": "How many unique customers placed at least one order across the entire dataset?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.customer_id"
+    ],
+    "expected_answer": 181,
+    "calculation_method": "Count distinct orders.customer_id across orders.csv.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-A03",
+    "category": "Basic Analytics",
+    "question": "What is the Average Order Value (AOV) in USD for completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.currency",
+      "orders.total_amount",
+      "orders.order_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": 874.35,
+    "calculation_method": "Average orders.total_amount for USD completed orders with completed payments.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-A04",
+    "category": "Basic Analytics",
+    "question": "How many total orders were placed through the 'Mobile App' sales channel?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.channel",
+      "orders.order_id"
+    ],
+    "expected_answer": 163,
+    "calculation_method": "Count rows in orders.csv where channel == 'Mobile App'.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-A05",
+    "category": "Basic Analytics",
+    "question": "Which product ID had the highest total quantity sold across completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "order_items.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "order_items.product_id",
+      "order_items.quantity",
+      "orders.order_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": "PROD-0018",
+    "calculation_method": "Group order_items by product_id for completed orders and select product_id with maximum sum(quantity).",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-A06",
+    "category": "Basic Analytics",
+    "question": "How many refund transactions have been successfully processed?",
+    "required_tables": [
+      "refunds.csv"
+    ],
+    "required_columns": [
+      "refunds.refund_status"
+    ],
+    "expected_answer": 58,
+    "calculation_method": "Count rows in refunds.csv where refund_status == 'processed'.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-B01",
+    "category": "Multi-Table Reasoning",
+    "question": "Which customer segment generated the highest net revenue in INR (gross recognized revenue minus processed refunds)?",
+    "required_tables": [
+      "orders.csv",
+      "customers.csv",
+      "payments.csv",
+      "refunds.csv"
+    ],
+    "required_columns": [
+      "orders.order_id",
+      "orders.customer_id",
+      "orders.total_amount",
+      "orders.currency",
+      "customers.customer_segment",
+      "refunds.refund_amount",
+      "refunds.refund_status"
+    ],
+    "expected_answer": "Corporate",
+    "calculation_method": "Join completed orders with customers, compute gross revenue per segment in INR, subtract processed refunds joined through orders, find argmax.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-B02",
+    "category": "Multi-Table Reasoning",
+    "question": "Which product category generated the highest total line revenue in USD from completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "order_items.csv",
+      "products.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.order_id",
+      "orders.currency",
+      "order_items.line_total",
+      "products.category",
+      "payments.payment_status"
+    ],
+    "expected_answer": "Computers & Workspace",
+    "calculation_method": "Join completed USD orders with order_items and products, group by products.category, sum order_items.line_total, find argmax.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-B03",
+    "category": "Multi-Table Reasoning",
+    "question": "Which geographical region in India had the highest count of completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "customers.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.customer_id",
+      "orders.order_status",
+      "customers.region",
+      "customers.country",
+      "payments.payment_status"
+    ],
+    "expected_answer": "North",
+    "calculation_method": "Join completed INR orders with customers, filter for country == 'IND', group by region, count orders, find argmax.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-B04",
+    "category": "Multi-Table Reasoning",
+    "question": "What is the total value in INR of processed refunds originated from payments made via 'UPI'?",
+    "required_tables": [
+      "refunds.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "refunds.refund_amount",
+      "refunds.payment_id",
+      "refunds.refund_status",
+      "payments.payment_method",
+      "refunds.currency"
+    ],
+    "expected_answer": 53044.03,
+    "calculation_method": "Join processed refunds with payments on payment_id, filter where payment_method == 'UPI' and currency == 'INR', sum refund_amount.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-B05",
+    "category": "Multi-Table Reasoning",
+    "question": "How many distinct customers have received at least one processed refund?",
+    "required_tables": [
+      "refunds.csv",
+      "orders.csv"
+    ],
+    "required_columns": [
+      "refunds.order_id",
+      "refunds.refund_status",
+      "orders.customer_id"
+    ],
+    "expected_answer": 46,
+    "calculation_method": "Join processed refunds with orders on order_id and count distinct customer_id.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-B06",
+    "category": "Multi-Table Reasoning",
+    "question": "What was the total Cost of Goods Sold (COGS) in INR for all completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "order_items.csv",
+      "products.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "order_items.quantity",
+      "order_items.order_id",
+      "products.unit_cost",
+      "orders.order_status",
+      "orders.currency",
+      "payments.payment_status"
+    ],
+    "expected_answer": 7553060.0,
+    "calculation_method": "Filter completed INR orders with completed payments, join with order_items and products, calculate sum(quantity * unit_cost).",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-C01",
+    "category": "Data Quality",
+    "question": "How many duplicate order header rows (same order_id) exist in messy orders.csv?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.order_id"
+    ],
+    "expected_answer": 4,
+    "calculation_method": "Calculate mo.duplicated(subset=['order_id']).sum() in messy orders.csv.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "DUPLICATE_ORDER_ROW"
+    ],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-C02",
+    "category": "Data Quality",
+    "question": "How many duplicate payment records exist in messy payments.csv?",
+    "required_tables": [
+      "payments.csv"
+    ],
+    "required_columns": [
+      "payments.payment_id"
+    ],
+    "expected_answer": 3,
+    "calculation_method": "Count duplicated rows based on payment_id in messy payments.csv.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "DUPLICATE_PAYMENT_ROW"
+    ],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-C03",
+    "category": "Data Quality",
+    "question": "How many order records in messy orders.csv reference customer IDs that do not exist in customers.csv?",
+    "required_tables": [
+      "orders.csv",
+      "customers.csv"
+    ],
+    "required_columns": [
+      "orders.customer_id",
+      "customers.customer_id"
+    ],
+    "expected_answer": 1,
+    "calculation_method": "Count orders in messy orders.csv where customer_id not in customers.customer_id.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "ORPHAN_CUSTOMER_FK"
+    ],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-C04",
+    "category": "Data Quality",
+    "question": "How many order item records in messy order_items.csv reference product IDs that do not exist in products.csv?",
+    "required_tables": [
+      "order_items.csv",
+      "products.csv"
+    ],
+    "required_columns": [
+      "order_items.product_id",
+      "products.product_id"
+    ],
+    "expected_answer": 1,
+    "calculation_method": "Count order items where product_id not in products.product_id.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "ORPHAN_PRODUCT_FK"
+    ],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-C05",
+    "category": "Data Quality",
+    "question": "How many customer records in messy customers.csv have a missing or null region?",
+    "required_tables": [
+      "customers.csv"
+    ],
+    "required_columns": [
+      "customers.region"
+    ],
+    "expected_answer": 3,
+    "calculation_method": "Count null values in messy customers.region.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "MISSING_REGION"
+    ],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-C06",
+    "category": "Data Quality",
+    "question": "How many order item lines in messy order_items.csv contain an invalid negative unit price?",
+    "required_tables": [
+      "order_items.csv"
+    ],
+    "required_columns": [
+      "order_items.unit_price"
+    ],
+    "expected_answer": 1,
+    "calculation_method": "Count rows where unit_price < 0 in messy order_items.csv.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [
+      "NEGATIVE_UNIT_PRICE"
+    ],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-D01",
+    "category": "Advanced Analytics",
+    "question": "What is the refund rate percentage in INR (total processed refunds divided by gross recognized revenue multiplied by 100)?",
+    "required_tables": [
+      "orders.csv",
+      "refunds.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.total_amount",
+      "orders.currency",
+      "orders.order_status",
+      "refunds.refund_amount",
+      "refunds.refund_status",
+      "refunds.currency",
+      "payments.payment_status"
+    ],
+    "expected_answer": 3.22,
+    "calculation_method": "Compute sum(processed refunds in INR) / sum(gross recognized revenue in INR) * 100, rounded to 2 decimals.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-D02",
+    "category": "Advanced Analytics",
+    "question": "Which customer ID has generated the highest Customer Lifetime Value (net revenue in INR) across all completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "refunds.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.customer_id",
+      "orders.total_amount",
+      "orders.order_status",
+      "orders.currency",
+      "refunds.refund_amount",
+      "refunds.refund_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": "CUST-0025",
+    "calculation_method": "Calculate net recognized revenue per customer in INR (gross minus refunds) and find argmax customer_id.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-D03",
+    "category": "Advanced Analytics",
+    "question": "What was the month-over-month net revenue growth percentage in INR from September 2026 to October 2026?",
+    "required_tables": [
+      "orders.csv",
+      "refunds.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "orders.order_date",
+      "orders.total_amount",
+      "orders.currency",
+      "orders.order_status",
+      "refunds.refund_date",
+      "refunds.refund_amount",
+      "refunds.refund_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": -38.69,
+    "calculation_method": "Calculate Net Revenue for Sep 2026 and Oct 2026, then compute ((Oct_Net - Sep_Net) / Sep_Net) * 100.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-D04",
+    "category": "Advanced Analytics",
+    "question": "Which product category generated the highest gross profit in INR from completed orders?",
+    "required_tables": [
+      "orders.csv",
+      "order_items.csv",
+      "products.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "order_items.line_total",
+      "order_items.quantity",
+      "products.unit_cost",
+      "products.category",
+      "orders.currency",
+      "orders.order_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": "Computers & Workspace",
+    "calculation_method": "Join completed INR orders with order_items and products, compute sum(line_total - (quantity * unit_cost)) by category, find argmax.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-D05",
+    "category": "Advanced Analytics",
+    "question": "What percentage of all placed orders were cancelled?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.order_status",
+      "orders.order_id"
+    ],
+    "expected_answer": 3.65,
+    "calculation_method": "(Count of cancelled orders / total count of orders) * 100 rounded to 2 decimals.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-D06",
+    "category": "Advanced Analytics",
+    "question": "What was the overall gross product margin percentage across completed INR orders?",
+    "required_tables": [
+      "orders.csv",
+      "order_items.csv",
+      "products.csv",
+      "payments.csv"
+    ],
+    "required_columns": [
+      "order_items.line_total",
+      "order_items.quantity",
+      "products.unit_cost",
+      "orders.currency",
+      "orders.order_status",
+      "payments.payment_status"
+    ],
+    "expected_answer": 41.49,
+    "calculation_method": "(Total Product Gross Profit / Total Product Revenue) * 100 for completed INR orders.",
+    "should_answer": true,
+    "should_refuse": false,
+    "expected_reason": null,
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-E01",
+    "category": "Ambiguous Questions",
+    "question": "What was the total revenue on 03/04/2026?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.order_date",
+      "orders.total_amount"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Date format 03/04/2026 is inherently ambiguous between 4th March 2026 (DD/MM/YYYY) and 3rd April 2026 (MM/DD/YYYY).",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Date string '03/04/2026' is ambiguous between DD/MM/YYYY and MM/DD/YYYY format. Clarification of date convention is required.",
+    "data_quality_issues": [
+      "AMBIGUOUS_DATE_FORMAT"
+    ],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-E02",
+    "category": "Ambiguous Questions",
+    "question": "What were the total sales for NovaCart?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.total_amount",
+      "orders.currency"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Metric 'sales' is ambiguous: unspecified whether Gross Billed, Recognized Delivered, or Net after refunds, and currency (INR vs USD) is unstated.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Query is underspecified: 'total sales' does not distinguish between gross order value, recognized revenue, or net revenue, nor does it specify currency.",
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-E03",
+    "category": "Ambiguous Questions",
+    "question": "Which location has the most sales?",
+    "required_tables": [
+      "customers.csv",
+      "orders.csv"
+    ],
+    "required_columns": [
+      "customers.region",
+      "customers.country"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Geographic dimension 'location' is ambiguous between customer billing region and country, and metric 'sales' is undefined.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "'Location' is ambiguous (could refer to customer region or country), and sales metric is unspecified.",
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-E04",
+    "category": "Ambiguous Questions",
+    "question": "What was the total order volume in Q3?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.order_date"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Unspecified whether Q3 denotes Calendar Year Q3 (Jul-Sep) or Indian Fiscal Year Q3 (Oct-Dec).",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "'Q3' is ambiguous without specifying calendar quarter (Jul-Sep) versus fiscal quarter (Oct-Dec in India).",
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-E05",
+    "category": "Ambiguous Questions",
+    "question": "Who is NovaCart's best customer?",
+    "required_tables": [
+      "customers.csv",
+      "orders.csv"
+    ],
+    "required_columns": [
+      "customers.customer_id",
+      "orders.total_amount"
+    ],
+    "expected_answer": null,
+    "calculation_method": "'Best customer' is subjective and ambiguous without specifying order count, gross revenue, net revenue, or recency.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Subjective metric 'best customer' is ambiguous without an objective ranking criterion (e.g. order count, gross spend, or net CLV).",
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-E06",
+    "category": "Ambiguous Questions",
+    "question": "What was total company revenue converted to EUR?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.total_amount",
+      "orders.currency"
+    ],
+    "expected_answer": null,
+    "calculation_method": "EUR conversion requested, but no EUR exchange rate is maintained or provided in the data dictionary.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "No EUR exchange rates are available in the schema or documented business rules.",
+    "data_quality_issues": [],
+    "difficulty": "Hard"
+  },
+  {
+    "id": "TC-F01",
+    "category": "Unanswerable Questions",
+    "question": "What was NovaCart's Return on Ad Spend (ROAS) in September 2026?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "ad_spend",
+      "marketing_cost"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Advertising and marketing expenditure are completely absent from the database schema.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Return on Ad Spend (ROAS) cannot be calculated because marketing and advertising expenditure data is not tracked in the database.",
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-F02",
+    "category": "Unanswerable Questions",
+    "question": "What was the total net profit generated by product PROD-0003 in the messy catalog?",
+    "required_tables": [
+      "products.csv",
+      "order_items.csv",
+      "orders.csv"
+    ],
+    "required_columns": [
+      "products.unit_cost",
+      "order_items.line_total"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Product PROD-0003 has a null unit_cost in the messy catalog; COGS and profit cannot be computed.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Cannot calculate profit for product PROD-0003 because its procurement cost (unit_cost) is missing (null) in the product catalog.",
+    "data_quality_issues": [
+      "MISSING_UNIT_COST"
+    ],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-F03",
+    "category": "Unanswerable Questions",
+    "question": "What is the combined worldwide gross revenue in INR if no exchange rate assumptions are permitted?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "orders.total_amount",
+      "orders.currency"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Transactions span INR and USD; summing across distinct currencies without an exchange rate is mathematically invalid.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Transactions are billed in both INR and USD; combined revenue cannot be calculated without an authorized foreign exchange conversion rate.",
+    "data_quality_issues": [],
+    "difficulty": "Medium"
+  },
+  {
+    "id": "TC-F04",
+    "category": "Unanswerable Questions",
+    "question": "How much sales commission is owed to representative Priya Patel for corporate deals?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "sales_rep",
+      "commission_rate"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Sales representative assignments and commission structures are not recorded in the schema.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Sales representatives and commission structures are not tracked in the database.",
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-F05",
+    "category": "Unanswerable Questions",
+    "question": "What were the total inventory carrying and warehousing costs for October 2026?",
+    "required_tables": [
+      "products.csv"
+    ],
+    "required_columns": [
+      "holding_cost",
+      "warehouse_fee"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Warehousing and logistics storage expenses are completely absent from the database.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Warehousing fees, inventory holding expenses, and storage costs are not tracked in the dataset.",
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  },
+  {
+    "id": "TC-F06",
+    "category": "Unanswerable Questions",
+    "question": "What was the website checkout conversion rate (visitors to completed purchases) in September 2026?",
+    "required_tables": [
+      "orders.csv"
+    ],
+    "required_columns": [
+      "website_sessions",
+      "visitor_count"
+    ],
+    "expected_answer": null,
+    "calculation_method": "Web analytics sessions, impressions, and visit logs are not recorded in the transaction database.",
+    "should_answer": false,
+    "should_refuse": true,
+    "expected_reason": "Web traffic sessions, visitor counts, and funnel telemetry are not tracked in the relational transaction database.",
+    "data_quality_issues": [],
+    "difficulty": "Easy"
+  }
+]

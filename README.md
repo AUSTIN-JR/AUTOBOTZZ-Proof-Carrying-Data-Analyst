@@ -361,6 +361,25 @@ npm run build
 * **ESLint Status:** Clean (0 errors, 0 warnings)
 * **Next.js Production Build:** Successful static page generation (Exit Code 0)
 
+#### Benchmark Suite & Dataset Evaluation
+External adversarial datasets, specifications, and validation tooling are organized under `benchmark/`:
+```bash
+# 1. Dataset Integrity Validation (68 structural & domain checks)
+python benchmark/tools/validate_dataset.py
+
+# 2. Ground-Truth Reference Verification (36 analytical cases)
+python benchmark/tools/ground_truth.py
+
+# 3. Selected Demo-Case Pipeline Evaluation (Member 2 Recommended Set)
+python benchmark/tools/eval_demo_cases.py
+```
+* **Dataset Integrity Validation:** **68 / 68 checks passed (100%)** across clean and messy benchmark fixtures.
+* **Ground-Truth Reference Verification:** **36 / 36 cases computed and verified** against pandas reference logic.
+* **Selected Demo-Case Pipeline Evaluation:**
+  * Supported operations: **2 / 2 passed with 100% precision** (`TC-C01` duplicate audit verified with `MATCH`, `TC-F03` multi-currency query correctly refused under zero-hallucination policy).
+  * Out-of-scope operations: **3 / 3 safely handled as `UNSUPPORTED ANALYSIS`** (`TC-A02`, `TC-B04`, `TC-D02`).
+  * Execution crashes / unexpected failures: **0**.
+
 ---
 
 ### Known Limitations (Qualifier Scope)

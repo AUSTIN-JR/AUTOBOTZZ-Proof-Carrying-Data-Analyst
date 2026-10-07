@@ -1,0 +1,37 @@
+id,category,expected_answer,should_answer,should_refuse,expected_reason,calculation_method
+TC-A01,Basic Analytics,5078951.91,True,False,,"Sum orders.total_amount where currency == 'INR', order_date is September 2026, status in (confirmed, shipped, delivered), and payment is completed."
+TC-A02,Basic Analytics,181,True,False,,Count distinct orders.customer_id across orders.csv.
+TC-A03,Basic Analytics,874.35,True,False,,Average orders.total_amount for USD completed orders with completed payments.
+TC-A04,Basic Analytics,163,True,False,,Count rows in orders.csv where channel == 'Mobile App'.
+TC-A05,Basic Analytics,PROD-0018,True,False,,Group order_items by product_id for completed orders and select product_id with maximum sum(quantity).
+TC-A06,Basic Analytics,58,True,False,,Count rows in refunds.csv where refund_status == 'processed'.
+TC-B01,Multi-Table Reasoning,Corporate,True,False,,"Join completed orders with customers, compute gross revenue per segment in INR, subtract processed refunds joined through orders, find argmax."
+TC-B02,Multi-Table Reasoning,Computers & Workspace,True,False,,"Join completed USD orders with order_items and products, group by products.category, sum order_items.line_total, find argmax."
+TC-B03,Multi-Table Reasoning,North,True,False,,"Join completed INR orders with customers, filter for country == 'IND', group by region, count orders, find argmax."
+TC-B04,Multi-Table Reasoning,53044.03,True,False,,"Join processed refunds with payments on payment_id, filter where payment_method == 'UPI' and currency == 'INR', sum refund_amount."
+TC-B05,Multi-Table Reasoning,46,True,False,,Join processed refunds with orders on order_id and count distinct customer_id.
+TC-B06,Multi-Table Reasoning,7553060.0,True,False,,"Filter completed INR orders with completed payments, join with order_items and products, calculate sum(quantity * unit_cost)."
+TC-C01,Data Quality,4,True,False,,Calculate mo.duplicated(subset=['order_id']).sum() in messy orders.csv.
+TC-C02,Data Quality,3,True,False,,Count duplicated rows based on payment_id in messy payments.csv.
+TC-C03,Data Quality,1,True,False,,Count orders in messy orders.csv where customer_id not in customers.customer_id.
+TC-C04,Data Quality,1,True,False,,Count order items where product_id not in products.product_id.
+TC-C05,Data Quality,3,True,False,,Count null values in messy customers.region.
+TC-C06,Data Quality,1,True,False,,Count rows where unit_price < 0 in messy order_items.csv.
+TC-D01,Advanced Analytics,3.22,True,False,,"Compute sum(processed refunds in INR) / sum(gross recognized revenue in INR) * 100, rounded to 2 decimals."
+TC-D02,Advanced Analytics,CUST-0025,True,False,,Calculate net recognized revenue per customer in INR (gross minus refunds) and find argmax customer_id.
+TC-D03,Advanced Analytics,-38.69,True,False,,"Calculate Net Revenue for Sep 2026 and Oct 2026, then compute ((Oct_Net - Sep_Net) / Sep_Net) * 100."
+TC-D04,Advanced Analytics,Computers & Workspace,True,False,,"Join completed INR orders with order_items and products, compute sum(line_total - (quantity * unit_cost)) by category, find argmax."
+TC-D05,Advanced Analytics,3.65,True,False,,(Count of cancelled orders / total count of orders) * 100 rounded to 2 decimals.
+TC-D06,Advanced Analytics,41.49,True,False,,(Total Product Gross Profit / Total Product Revenue) * 100 for completed INR orders.
+TC-E01,Ambiguous Questions,REFUSAL_REQUIRED,False,True,Date string '03/04/2026' is ambiguous between DD/MM/YYYY and MM/DD/YYYY format. Clarification of date convention is required.,Date format 03/04/2026 is inherently ambiguous between 4th March 2026 (DD/MM/YYYY) and 3rd April 2026 (MM/DD/YYYY).
+TC-E02,Ambiguous Questions,REFUSAL_REQUIRED,False,True,"Query is underspecified: 'total sales' does not distinguish between gross order value, recognized revenue, or net revenue, nor does it specify currency.","Metric 'sales' is ambiguous: unspecified whether Gross Billed, Recognized Delivered, or Net after refunds, and currency (INR vs USD) is unstated."
+TC-E03,Ambiguous Questions,REFUSAL_REQUIRED,False,True,"'Location' is ambiguous (could refer to customer region or country), and sales metric is unspecified.","Geographic dimension 'location' is ambiguous between customer billing region and country, and metric 'sales' is undefined."
+TC-E04,Ambiguous Questions,REFUSAL_REQUIRED,False,True,'Q3' is ambiguous without specifying calendar quarter (Jul-Sep) versus fiscal quarter (Oct-Dec in India).,Unspecified whether Q3 denotes Calendar Year Q3 (Jul-Sep) or Indian Fiscal Year Q3 (Oct-Dec).
+TC-E05,Ambiguous Questions,REFUSAL_REQUIRED,False,True,"Subjective metric 'best customer' is ambiguous without an objective ranking criterion (e.g. order count, gross spend, or net CLV).","'Best customer' is subjective and ambiguous without specifying order count, gross revenue, net revenue, or recency."
+TC-E06,Ambiguous Questions,REFUSAL_REQUIRED,False,True,No EUR exchange rates are available in the schema or documented business rules.,"EUR conversion requested, but no EUR exchange rate is maintained or provided in the data dictionary."
+TC-F01,Unanswerable Questions,REFUSAL_REQUIRED,False,True,Return on Ad Spend (ROAS) cannot be calculated because marketing and advertising expenditure data is not tracked in the database.,Advertising and marketing expenditure are completely absent from the database schema.
+TC-F02,Unanswerable Questions,REFUSAL_REQUIRED,False,True,Cannot calculate profit for product PROD-0003 because its procurement cost (unit_cost) is missing (null) in the product catalog.,Product PROD-0003 has a null unit_cost in the messy catalog; COGS and profit cannot be computed.
+TC-F03,Unanswerable Questions,REFUSAL_REQUIRED,False,True,Transactions are billed in both INR and USD; combined revenue cannot be calculated without an authorized foreign exchange conversion rate.,Transactions span INR and USD; summing across distinct currencies without an exchange rate is mathematically invalid.
+TC-F04,Unanswerable Questions,REFUSAL_REQUIRED,False,True,Sales representatives and commission structures are not tracked in the database.,Sales representative assignments and commission structures are not recorded in the schema.
+TC-F05,Unanswerable Questions,REFUSAL_REQUIRED,False,True,"Warehousing fees, inventory holding expenses, and storage costs are not tracked in the dataset.",Warehousing and logistics storage expenses are completely absent from the database.
+TC-F06,Unanswerable Questions,REFUSAL_REQUIRED,False,True,"Web traffic sessions, visitor counts, and funnel telemetry are not tracked in the relational transaction database.","Web analytics sessions, impressions, and visit logs are not recorded in the transaction database."

@@ -33,6 +33,11 @@
 * **Independent Result Verification:** Mathematical reconciliation comparing calculated pandas metrics against subprocess stdout. Emits `MATCH` or `MISMATCH`.
 * **ProofPack™ Bundle:** Assembles all telemetry, source lineage, code, and verification proofs into a unified schema.
 
+### Benchmark & Ground Truth Evaluation
+* **Adversarial Benchmark Assets:** Clean and messy fixtures (`benchmark/datasets/`), 36 test case definitions (`benchmark/cases/test_cases.json`), and reference logic (`benchmark/tools/ground_truth.py`).
+* **Validation Results:** 68/68 dataset structural/quality checks pass; 36/36 ground truth assertions verified.
+* **Pipeline Integration:** Automated evaluation runner (`benchmark/tools/eval_demo_cases.py`) verifying bounded qualifier operations (`TC-C01`, `TC-F03`) and safe rejection of out-of-scope queries (`TC-A02`, `TC-B04`, `TC-D02`).
+
 ---
 
 ## 2. LIMITATIONS (Intentional Qualifier Trade-offs)

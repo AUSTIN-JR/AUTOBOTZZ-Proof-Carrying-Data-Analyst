@@ -92,14 +92,28 @@ class AnalysisEngine:
 
         # 2. Check for Currency Refusal Trap
         if plan.operation == "CURRENCY_REFUSAL":
-            # Attempt to resolve payments dataset to inspect actual currencies
-            affected_datasets = ["payments.csv"]
-            try:
-                payments_df, _ = cls._resolve_dataset_file("payments.csv")
-                currencies_detected = sorted(list(payments_df["currency"].dropna().unique()))
-            except Exception:
-                currencies_detected = ["INR", "USD"]
+            # Attempt to resolve payments or orders dataset to inspect actual currencies
+            affected_datasets = []
+            currencies_detected = []
+            source_col = "amount"
+            for ds_name in ["payments.csv", "orders.csv"]:
+                try:
+                    df, _ = cls._resolve_dataset_file(ds_name)
+                    if "currency" in df.columns:
+                        affected_datasets.append(ds_name)
+                        currencies_detected.extend(df["currency"].dropna().unique())
+                        if "total_amount" in df.columns:
+                            source_col = "total_amount"
+                except Exception:
+                    pass
 
+            if not affected_datasets:
+                affected_datasets = ["payments.csv"]
+            if not currencies_detected:
+                currencies_detected = ["INR", "USD"]
+            currencies_detected = sorted(list(set(currencies_detected)))
+
+            primary_ds = affected_datasets[0]
             currency_str = ", ".join(currencies_detected)
             refusal = RefusalDetails(
                 reason=f"Multiple unpegged currencies detected ({currency_str}) without exchange rate evidence.",
@@ -117,15 +131,15 @@ class AnalysisEngine:
                 outcome="refused",
                 headline_answer="CANNOT VERIFY RELIABLY",
                 metric_label="Zero-Hallucination Barrier Triggered",
-                short_explanation=f"Combining {currency_str} payments without verified spot exchange rates is mathematically invalid and refused under zero-hallucination policy.",
+                short_explanation=f"Combining {currency_str} amounts without verified spot exchange rates is mathematically invalid and refused under zero-hallucination policy.",
                 calculation_breakdown=[],
                 assumptions=plan.assumptions,
                 datasets=affected_datasets,
                 sources=[
                     EvidenceSource(
-                        dataset_id="ds-payments",
-                        filename="payments.csv",
-                        columns_used=["amount", "currency"],
+                        dataset_id=f"ds-{primary_ds.split('.')[0]}",
+                        filename=primary_ds,
+                        columns_used=[source_col, "currency"],
                     )
                 ],
                 data_quality_issues=[
@@ -133,7 +147,7 @@ class AnalysisEngine:
                         "id": "iss-curr-conflict",
                         "title": "MULTIPLE CURRENCIES DETECTED",
                         "severity": "critical",
-                        "datasetName": "payments.csv",
+                        "datasetName": primary_ds,
                         "description": f"Found {currency_str} transactions without exchange rate table.",
                         "impact": "Arithmetic across unpegged currencies produces invalid totals.",
                         "handlingDecision": "Halted computation under zero-hallucination constraint.",

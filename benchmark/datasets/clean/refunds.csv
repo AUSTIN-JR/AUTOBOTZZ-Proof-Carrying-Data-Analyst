@@ -1,0 +1,59 @@
+refund_id,order_id,payment_id,refund_date,refund_amount,currency,reason,refund_status
+REF-0001,ORD-0012,PAY-0012,2026-09-21,8849.41,INR,Defective Product,processed
+REF-0002,ORD-0026,PAY-0026,2026-08-10,60.53,USD,Defective Product,processed
+REF-0003,ORD-0028,PAY-0028,2026-08-14,1768.82,INR,Wrong Item Shipped,processed
+REF-0004,ORD-0039,PAY-0039,2026-09-08,19821.64,INR,Defective Product,processed
+REF-0005,ORD-0049,PAY-0049,2026-08-27,1978.3,INR,Wrong Item Shipped,processed
+REF-0006,ORD-0062,PAY-0062,2026-09-07,162208.7,INR,Late Delivery,processed
+REF-0007,ORD-0069,PAY-0069,2026-09-20,3536.46,INR,Wrong Item Shipped,processed
+REF-0008,ORD-0074,PAY-0074,2026-07-19,511.97,USD,Defective Product,processed
+REF-0009,ORD-0080,PAY-0080,2026-11-03,58733.91,INR,Customer Cancellation,processed
+REF-0010,ORD-0083,PAY-0083,2026-07-21,20.26,USD,Defective Product,processed
+REF-0011,ORD-0089,PAY-0089,2026-10-20,286.25,USD,Customer Cancellation,processed
+REF-0012,ORD-0104,PAY-0104,2026-10-23,1229.41,INR,Wrong Item Shipped,processed
+REF-0013,ORD-0109,PAY-0109,2026-08-29,639.41,INR,Defective Product,processed
+REF-0014,ORD-0123,PAY-0123,2026-07-14,1040.58,USD,Defective Product,processed
+REF-0015,ORD-0130,PAY-0130,2026-08-26,361.02,INR,Wrong Item Shipped,processed
+REF-0016,ORD-0131,PAY-0131,2026-07-15,17933.76,INR,Defective Product,processed
+REF-0017,ORD-0146,PAY-0146,2026-10-09,1229.41,INR,Customer Cancellation,processed
+REF-0018,ORD-0151,PAY-0151,2026-08-18,172.21,INR,Late Delivery,processed
+REF-0019,ORD-0152,PAY-0152,2026-10-21,25978.06,INR,Wrong Item Shipped,processed
+REF-0020,ORD-0154,PAY-0154,2026-08-26,883.58,INR,Wrong Item Shipped,processed
+REF-0021,ORD-0160,PAY-0160,2026-09-20,426.05,USD,Wrong Item Shipped,processed
+REF-0022,ORD-0170,PAY-0170,2026-08-05,1046.19,USD,Defective Product,processed
+REF-0023,ORD-0222,PAY-0222,2026-07-23,4998.51,INR,Defective Product,processed
+REF-0024,ORD-0225,PAY-0225,2026-09-19,694.6,USD,Customer Cancellation,processed
+REF-0025,ORD-0236,PAY-0236,2026-10-01,9673.64,INR,Late Delivery,processed
+REF-0026,ORD-0268,PAY-0268,2026-10-01,3892.82,INR,Defective Product,processed
+REF-0027,ORD-0275,PAY-0275,2026-11-05,51.17,USD,Customer Cancellation,processed
+REF-0028,ORD-0276,PAY-0276,2026-09-22,132.35,USD,Customer Cancellation,processed
+REF-0029,ORD-0279,PAY-0279,2026-10-29,13274.11,INR,Wrong Item Shipped,processed
+REF-0030,ORD-0282,PAY-0282,2026-08-27,204.12,USD,Customer Cancellation,processed
+REF-0031,ORD-0299,PAY-0299,2026-10-01,38.5,USD,Wrong Item Shipped,processed
+REF-0032,ORD-0308,PAY-0308,2026-08-11,3137.68,INR,Customer Cancellation,processed
+REF-0033,ORD-0310,PAY-0310,2026-08-06,467.2,INR,Customer Cancellation,processed
+REF-0034,ORD-0322,PAY-0322,2026-07-26,4482.88,INR,Customer Cancellation,processed
+REF-0035,ORD-0329,PAY-0329,2026-10-27,47909.86,INR,Defective Product,processed
+REF-0036,ORD-0330,PAY-0330,2026-10-02,181.2,USD,Late Delivery,processed
+REF-0037,ORD-0347,PAY-0347,2026-07-20,38.27,USD,Wrong Item Shipped,processed
+REF-0038,ORD-0351,PAY-0351,2026-10-01,639.41,INR,Late Delivery,processed
+REF-0039,ORD-0354,PAY-0354,2026-10-06,4718.82,INR,Customer Cancellation,processed
+REF-0040,ORD-0356,PAY-0356,2026-09-11,722.04,INR,Customer Cancellation,processed
+REF-0041,ORD-0384,PAY-0384,2026-07-06,6841.7,INR,Wrong Item Shipped,processed
+REF-0042,ORD-0387,PAY-0387,2026-07-30,11605.82,INR,Late Delivery,processed
+REF-0043,ORD-0390,PAY-0390,2026-10-29,75.41,USD,Late Delivery,processed
+REF-0044,ORD-0392,PAY-0392,2026-08-06,6488.82,INR,Late Delivery,processed
+REF-0045,ORD-0395,PAY-0395,2026-09-18,21802.67,INR,Customer Cancellation,processed
+REF-0046,ORD-0396,PAY-0396,2026-10-30,922.37,USD,Late Delivery,processed
+REF-0047,ORD-0402,PAY-0402,2026-09-19,290.2,INR,Wrong Item Shipped,processed
+REF-0048,ORD-0407,PAY-0407,2026-07-19,25992.62,INR,Customer Cancellation,processed
+REF-0049,ORD-0414,PAY-0414,2026-10-27,1863.27,INR,Defective Product,processed
+REF-0050,ORD-0437,PAY-0437,2026-10-21,373.68,USD,Customer Cancellation,processed
+REF-0051,ORD-0443,PAY-0443,2026-09-08,4481.76,INR,Defective Product,processed
+REF-0052,ORD-0450,PAY-0450,2026-10-06,5131.23,INR,Late Delivery,processed
+REF-0053,ORD-0463,PAY-0463,2026-09-01,203.15,USD,Customer Cancellation,processed
+REF-0054,ORD-0475,PAY-0475,2026-08-24,2961.36,USD,Customer Cancellation,processed
+REF-0055,ORD-0483,PAY-0483,2026-08-13,704.38,USD,Defective Product,processed
+REF-0056,ORD-0496,PAY-0496,2026-10-03,555.71,INR,Defective Product,processed
+REF-0057,ORD-0501,PAY-0501,2026-09-16,580.41,INR,Wrong Item Shipped,processed
+REF-0058,ORD-0512,PAY-0512,2026-09-23,1400.69,INR,Customer Cancellation,processed

@@ -1,0 +1,31 @@
+product_id,product_name,category,currency,base_price,unit_cost,is_active
+PROD-0001,Nova Wave ANC Wireless Headphones,Audio & Sound,INR,7999.0,3800.0,True
+PROD-0002,Nova Bass True Wireless Earbuds,Audio & Sound,INR,2499.0,1100.0,True
+PROD-0003,Nova Boom 360 Bluetooth Speaker,Audio & Sound,INR,3999.0,1950.0,True
+PROD-0004,Nova Studio Monitor Studio Headset,Audio & Sound,USD,129.0,58.0,True
+PROD-0005,Nova Soundbar Dolby Atmos 120W,Audio & Sound,INR,14999.0,7800.0,True
+PROD-0006,Nova Pods Active Sport Earphones,Audio & Sound,USD,49.0,20.0,True
+PROD-0007,NovaBook Pro 15 M3 Laptop,Computers & Workspace,INR,89999.0,62000.0,True
+PROD-0008,Nova UltraWide 34-inch Curved Monitor,Computers & Workspace,USD,499.0,290.0,True
+PROD-0009,Nova MechKey RGB Mechanical Keyboard,Computers & Workspace,INR,4499.0,2100.0,True
+PROD-0010,Nova Glide Wireless Precision Mouse,Computers & Workspace,INR,1799.0,750.0,True
+PROD-0011,Nova Dock 12-in-1 Thunderbolt Station,Computers & Workspace,USD,189.0,95.0,True
+PROD-0012,NovaBook Air 13 Ultra-Light Laptop,Computers & Workspace,USD,899.0,610.0,True
+PROD-0013,Nova Ergo Aluminum Laptop Stand,Computers & Workspace,INR,1499.0,550.0,True
+PROD-0014,Nova PowerGaN 65W Fast Charger,Mobile & Accessories,INR,1999.0,820.0,True
+PROD-0015,Nova MagSafe 10000mAh Power Bank,Mobile & Accessories,INR,2899.0,1300.0,True
+PROD-0016,Nova Armor Braided USB-C Cable (2m),Mobile & Accessories,INR,499.0,140.0,True
+PROD-0017,Nova MagCharge 3-in-1 Wireless Stand,Mobile & Accessories,USD,59.0,24.0,True
+PROD-0018,Nova Crystal Clear Phone Case,Mobile & Accessories,INR,699.0,180.0,True
+PROD-0019,Nova Ultra-Fast 100W GaN Travel Adapter,Mobile & Accessories,USD,45.0,19.0,True
+PROD-0020,Nova Watch Horizon AMOLED Smartwatch,Smart Home & Wearables,INR,5499.0,2400.0,True
+PROD-0021,Nova Band 5 Fitness Tracker,Smart Home & Wearables,INR,1999.0,850.0,True
+PROD-0022,Nova Glow Smart RGB Wi-Fi Bulb 12W,Smart Home & Wearables,INR,899.0,320.0,True
+PROD-0023,Nova Cam 2K 360 Security Camera,Smart Home & Wearables,INR,3299.0,1500.0,True
+PROD-0024,Nova Smart Plug 16A Energy Monitor,Smart Home & Wearables,INR,1199.0,480.0,True
+PROD-0025,Nova Watch Pro Titanium GPS Edition,Smart Home & Wearables,USD,249.0,125.0,True
+PROD-0026,Nova Apex 8000Hz Esports Gaming Mouse,Gaming & Peripherals,USD,79.0,34.0,True
+PROD-0027,Nova Immersion 7.1 Surround Gaming Headset,Gaming & Peripherals,INR,3999.0,1750.0,True
+PROD-0028,Nova DeskMat XL Waterproof Mousepad,Gaming & Peripherals,INR,999.0,310.0,True
+PROD-0029,Nova StreamMic USB Cardioid Condenser,Gaming & Peripherals,USD,99.0,42.0,True
+PROD-0030,Nova Gamepad Wireless Controller,Gaming & Peripherals,INR,2799.0,1200.0,True

@@ -1,0 +1,254 @@
+[
+  {
+    "question_id": "TC-A01",
+    "question": "What was the total gross recognized revenue in INR from completed orders in September 2026?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 5078951.91,
+    "reason": null
+  },
+  {
+    "question_id": "TC-A02",
+    "question": "How many unique customers placed at least one order across the entire dataset?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 181,
+    "reason": null
+  },
+  {
+    "question_id": "TC-A03",
+    "question": "What is the Average Order Value (AOV) in USD for completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 874.35,
+    "reason": null
+  },
+  {
+    "question_id": "TC-A04",
+    "question": "How many total orders were placed through the 'Mobile App' sales channel?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 163,
+    "reason": null
+  },
+  {
+    "question_id": "TC-A05",
+    "question": "Which product ID had the highest total quantity sold across completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "PROD-0018",
+    "reason": null
+  },
+  {
+    "question_id": "TC-A06",
+    "question": "How many refund transactions have been successfully processed?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 58,
+    "reason": null
+  },
+  {
+    "question_id": "TC-B01",
+    "question": "Which customer segment generated the highest net revenue in INR (gross recognized revenue minus processed refunds)?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "Corporate",
+    "reason": null
+  },
+  {
+    "question_id": "TC-B02",
+    "question": "Which product category generated the highest total line revenue in USD from completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "Computers & Workspace",
+    "reason": null
+  },
+  {
+    "question_id": "TC-B03",
+    "question": "Which geographical region in India had the highest count of completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "North",
+    "reason": null
+  },
+  {
+    "question_id": "TC-B04",
+    "question": "What is the total value in INR of processed refunds originated from payments made via 'UPI'?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 53044.03,
+    "reason": null
+  },
+  {
+    "question_id": "TC-B05",
+    "question": "How many distinct customers have received at least one processed refund?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 46,
+    "reason": null
+  },
+  {
+    "question_id": "TC-B06",
+    "question": "What was the total Cost of Goods Sold (COGS) in INR for all completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 7553060.0,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C01",
+    "question": "How many duplicate order header rows (same order_id) exist in messy orders.csv?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 4,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C02",
+    "question": "How many duplicate payment records exist in messy payments.csv?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 3,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C03",
+    "question": "How many order records in messy orders.csv reference customer IDs that do not exist in customers.csv?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 1,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C04",
+    "question": "How many order item records in messy order_items.csv reference product IDs that do not exist in products.csv?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 1,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C05",
+    "question": "How many customer records in messy customers.csv have a missing or null region?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 3,
+    "reason": null
+  },
+  {
+    "question_id": "TC-C06",
+    "question": "How many order item lines in messy order_items.csv contain an invalid negative unit price?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 1,
+    "reason": null
+  },
+  {
+    "question_id": "TC-D01",
+    "question": "What is the refund rate percentage in INR (total processed refunds divided by gross recognized revenue multiplied by 100)?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 3.22,
+    "reason": null
+  },
+  {
+    "question_id": "TC-D02",
+    "question": "Which customer ID has generated the highest Customer Lifetime Value (net revenue in INR) across all completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "CUST-0025",
+    "reason": null
+  },
+  {
+    "question_id": "TC-D03",
+    "question": "What was the month-over-month net revenue growth percentage in INR from September 2026 to October 2026?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": -38.69,
+    "reason": null
+  },
+  {
+    "question_id": "TC-D04",
+    "question": "Which product category generated the highest gross profit in INR from completed orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": "Computers & Workspace",
+    "reason": null
+  },
+  {
+    "question_id": "TC-D05",
+    "question": "What percentage of all placed orders were cancelled?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 3.65,
+    "reason": null
+  },
+  {
+    "question_id": "TC-D06",
+    "question": "What was the overall gross product margin percentage across completed INR orders?",
+    "expected_behavior": "ANSWER",
+    "expected_answer": 41.49,
+    "reason": null
+  },
+  {
+    "question_id": "TC-E01",
+    "question": "What was the total revenue on 03/04/2026?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Date string '03/04/2026' is ambiguous between DD/MM/YYYY and MM/DD/YYYY format. Clarification of date convention is required."
+  },
+  {
+    "question_id": "TC-E02",
+    "question": "What were the total sales for NovaCart?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Query is underspecified: 'total sales' does not distinguish between gross order value, recognized revenue, or net revenue, nor does it specify currency."
+  },
+  {
+    "question_id": "TC-E03",
+    "question": "Which location has the most sales?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "'Location' is ambiguous (could refer to customer region or country), and sales metric is unspecified."
+  },
+  {
+    "question_id": "TC-E04",
+    "question": "What was the total order volume in Q3?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "'Q3' is ambiguous without specifying calendar quarter (Jul-Sep) versus fiscal quarter (Oct-Dec in India)."
+  },
+  {
+    "question_id": "TC-E05",
+    "question": "Who is NovaCart's best customer?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Subjective metric 'best customer' is ambiguous without an objective ranking criterion (e.g. order count, gross spend, or net CLV)."
+  },
+  {
+    "question_id": "TC-E06",
+    "question": "What was total company revenue converted to EUR?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "No EUR exchange rates are available in the schema or documented business rules."
+  },
+  {
+    "question_id": "TC-F01",
+    "question": "What was NovaCart's Return on Ad Spend (ROAS) in September 2026?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Return on Ad Spend (ROAS) cannot be calculated because marketing and advertising expenditure data is not tracked in the database."
+  },
+  {
+    "question_id": "TC-F02",
+    "question": "What was the total net profit generated by product PROD-0003 in the messy catalog?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Cannot calculate profit for product PROD-0003 because its procurement cost (unit_cost) is missing (null) in the product catalog."
+  },
+  {
+    "question_id": "TC-F03",
+    "question": "What is the combined worldwide gross revenue in INR if no exchange rate assumptions are permitted?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Transactions are billed in both INR and USD; combined revenue cannot be calculated without an authorized foreign exchange conversion rate."
+  },
+  {
+    "question_id": "TC-F04",
+    "question": "How much sales commission is owed to representative Priya Patel for corporate deals?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Sales representatives and commission structures are not tracked in the database."
+  },
+  {
+    "question_id": "TC-F05",
+    "question": "What were the total inventory carrying and warehousing costs for October 2026?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Warehousing fees, inventory holding expenses, and storage costs are not tracked in the dataset."
+  },
+  {
+    "question_id": "TC-F06",
+    "question": "What was the website checkout conversion rate (visitors to completed purchases) in September 2026?",
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "reason": "Web traffic sessions, visitor counts, and funnel telemetry are not tracked in the relational transaction database."
+  }
+]

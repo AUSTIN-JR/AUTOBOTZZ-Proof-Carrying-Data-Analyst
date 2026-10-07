@@ -1,0 +1,47 @@
+[
+  {
+    "id": "DEMO_01",
+    "question_id": "TC-A02",
+    "question": "How many unique customers placed at least one order across the entire dataset?",
+    "datasets": ["orders.csv"],
+    "expected_behavior": "ANSWER",
+    "expected_answer": 181,
+    "why_this_demo_matters": "Simplest possible count query on a single table. No joins, no filters beyond deduplication. Demonstrates that AUTOBOTZZ can produce a clean, verifiable numerical result with a reproducible proof script. Ground truth is unambiguous."
+  },
+  {
+    "id": "DEMO_02",
+    "question_id": "TC-B04",
+    "question": "What is the total value in INR of processed refunds originated from payments made via 'UPI'?",
+    "datasets": ["refunds.csv", "payments.csv"],
+    "expected_behavior": "ANSWER",
+    "expected_answer": 53044.03,
+    "why_this_demo_matters": "Requires a multi-step join: filter refunds by status='processed', join with payments on payment_id, then filter where payment_method='UPI' and currency='INR', and finally aggregate. Demonstrates real multi-table analytical reasoning with filtering at both steps."
+  },
+  {
+    "id": "DEMO_03",
+    "question_id": "TC-C01",
+    "question": "How many duplicate order header rows (same order_id) exist in messy orders.csv?",
+    "datasets": ["orders.csv (messy)"],
+    "expected_behavior": "ANSWER",
+    "expected_answer": 4,
+    "why_this_demo_matters": "Uses the intentionally messy dataset containing 4 injected duplicate order rows (ORD-0011 through ORD-0014). A naive AI counting all rows would produce a wrong total. AUTOBOTZZ must detect and count the duplicates using pandas.duplicated(), exposing the data quality problem explicitly."
+  },
+  {
+    "id": "DEMO_04",
+    "question_id": "TC-F03",
+    "question": "What is the combined worldwide gross revenue in INR if no exchange rate assumptions are permitted?",
+    "datasets": ["orders.csv"],
+    "expected_behavior": "REFUSE",
+    "expected_answer": null,
+    "why_this_demo_matters": "The strongest refusal case. Orders span both INR and USD currencies. Without a permitted exchange rate, arithmetically combining them is invalid. A naive AI would invent or hallucinate a rate and produce a confident but fabricated number. AUTOBOTZZ must refuse and explain the evidence gap. A correct refusal here is a benchmark PASS."
+  },
+  {
+    "id": "DEMO_05",
+    "question_id": "TC-D02",
+    "question": "Which customer ID has generated the highest Customer Lifetime Value (net revenue in INR) across all completed orders?",
+    "datasets": ["orders.csv", "refunds.csv", "payments.csv"],
+    "expected_behavior": "ANSWER",
+    "expected_answer": "CUST-0025",
+    "why_this_demo_matters": "Classic adversarial trap: a naive AI might rank by gross order spend and confidently return the wrong customer. The correct answer requires subtracting processed refunds from gross INR revenue per customer, then finding the argmax. Using gross alone silently inflates CLV for customers with high refund volumes. AUTOBOTZZ must compute net CLV correctly."
+  }
+]

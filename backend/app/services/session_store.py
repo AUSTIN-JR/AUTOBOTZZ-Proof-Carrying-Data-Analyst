@@ -6,6 +6,7 @@ from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
+from app.core.config import get_settings
 from app.models.dataset import DatasetProfile
 
 
@@ -54,11 +55,13 @@ class SessionStore:
             if dataset_id not in self._profiles:
                 return False
 
-            # Delete file from disk safely
+            # Delete file from disk safely only if inside temporary storage
             file_path = self._file_paths.pop(dataset_id, None)
             if file_path and file_path.exists():
                 try:
-                    file_path.unlink(missing_ok=True)
+                    storage_dir = get_settings().storage_dir.resolve()
+                    if file_path.resolve().is_relative_to(storage_dir):
+                        file_path.unlink(missing_ok=True)
                 except Exception:
                     pass
 
@@ -73,10 +76,12 @@ class SessionStore:
         """
         with self._lock:
             count = len(self._profiles)
+            storage_dir = get_settings().storage_dir.resolve()
             for file_path in self._file_paths.values():
                 if file_path and file_path.exists():
                     try:
-                        file_path.unlink(missing_ok=True)
+                        if file_path.resolve().is_relative_to(storage_dir):
+                            file_path.unlink(missing_ok=True)
                     except Exception:
                         pass
 

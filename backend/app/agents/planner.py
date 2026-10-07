@@ -26,19 +26,26 @@ class Planner:
                 assumptions=["Predictive modeling and forecasting outside deterministic qualifier scope."],
             )
 
-        # 0b. Category/Product breakdown or complex multi-table queries (outside qualifier MVP scope)
-        if any(w in q for w in ["category", "product", "highest net", "highest refund", "region"]):
+        # 0b. Category/Product breakdown, customer ranking, or complex multi-table queries (outside qualifier MVP scope)
+        if any(w in q for w in ["category", "product", "highest net", "highest refund", "region", "customer id", "lifetime value", "clv"]):
             return AnalysisPlan(
                 plan_id="plan_unsupported_breakdown",
                 operation="UNSUPPORTED",
                 title="Unsupported Grouping Analysis Request",
                 primary_dataset="",
                 handling_decisions=[],
-                assumptions=["Category breakdowns, product aggregations, and regional rate grouping fall outside bounded qualifier MVP scope."],
+                assumptions=["Category breakdowns, product aggregations, customer ranking, and regional rate grouping fall outside bounded qualifier MVP scope."],
             )
 
         # 1. Currency Refusal Trap
-        if ("usd" in q and "inr" in q) or "convert" in q or ("currency" in q and any(w in q for w in ["combine", "all", "total", "rate"])):
+        if (
+            ("usd" in q and "inr" in q)
+            or "convert" in q
+            or "exchange rate" in q
+            or "fx" in q
+            or "worldwide" in q
+            or ("currency" in q and any(w in q for w in ["combine", "all", "total", "rate"]))
+        ):
             return AnalysisPlan(
                 plan_id="plan_currency_refusal",
                 operation="CURRENCY_REFUSAL",
