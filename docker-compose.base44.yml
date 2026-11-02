@@ -1,0 +1,81 @@
+# Base44 development stack for AUTOBOTZZ.
+# Runs the FastAPI backend and the Next.js frontend straight from the cloned
+# source (bind mount + hot reload), so edits appear without rebuilding images.
+#
+#   docker compose -f docker-compose.base44.yml up -d --build
+#
+# Web entry point: host port 3000. API: host port 8000.
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.base44
+    working_dir: /workspace/backend
+    command:
+      - sh
+      - -ec
+      - exec python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /workspace/backend/app
+    volumes:
+      - ./:/workspace
+    ports:
+      - "8000:8000"
+    environment:
+      - AUTOBOTZZ_ENV=development
+      # The browser talks to the API cross-origin from the preview host.
+      - AUTOBOTZZ_ALLOWED_ORIGINS=https://3000-${BASE44_PUBLIC_HOST_SUFFIX},http://localhost:3000,http://127.0.0.1:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request, sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).status == 200 else 1)
+      interval: 15s
+      timeout: 6s
+      retries: 5
+      start_period: 20s
+    restart: on-failure
+    labels:
+      base44.project: "AUTOBOTZZ API"
+      base44.kind: "api"
+      base44.port: "8000"
+      base44.docs: "/docs"
+
+  web:
+    image: node:22
+    working_dir: /workspace/frontend
+    command:
+      - sh
+      - -ec
+      - npm ci --no-audit --no-fund && exec npm run dev -- --hostname 0.0.0.0 --port 3000
+    volumes:
+      - ./:/workspace
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - NEXT_PUBLIC_API_BASE_URL=https://8000-${BASE44_PUBLIC_HOST_SUFFIX}
+      - NEXT_TELEMETRY_DISABLED=1
+      # Bind mounts do not always emit inotify events; poll so hot reload works.
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    restart: on-failure
+    labels:
+      base44.project: "AUTOBOTZZ Web"
+      base44.kind: "web"
+      base44.port: "3000"
